@@ -33,14 +33,14 @@ control_capas = L.control.layers(capas_base).addTo(mapa);
 L.control.scale().addTo(mapa);
 
 // Agregar capa WMS
-var capa_CNE = L.tileLayer.wms('http://mapas.cne.go.cr/servicios/cne/wms', {
-  layers: 'coronas_de_deslizamientos',
+var capa_RN = L.tileLayer.wms('https://geos.snitcr.go.cr/be/IGN_25/wms?', {
+  layers: 'ec140101_25k',
   format: 'image/png',
   transparent: true
 }).addTo(mapa);
 
 // Se agrega al control de capas como de tipo "overlay"
-control_capas.addOverlay(capa_CNE, 'Corona de deslizamiento');
+control_capas.addOverlay(capa_RN, 'Construcciones');
 	    
 
 // Capa de coropletas del valor fiscal por zonas homogeneas
