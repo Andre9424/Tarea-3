@@ -32,15 +32,18 @@ control_capas = L.control.layers(capas_base).addTo(mapa);
 // Control de escala
 L.control.scale().addTo(mapa);
 
-// Agregar capa WMS
-var capa_RN = L.tileLayer.wms('https://geos.snitcr.go.cr/be/IGN_25/wms?', {
-  layers: 'ec140101_25k',
-  format: 'image/png',
-  transparent: true
-}).addTo(mapa);
+// Capa raster
+var capa_pendientes = L.imageOverlay("https://raw.githubusercontent.com/Andre9424/Tarea-3/main/Pendientes/pendirecWGS84.png", 
+	[[9.6223412691860801, -84.3418993877406109], 
+	[9.8616843904909679, -84.1319159426894743]], 
+	
+).addTo(mapa);
+control_capas.addOverlay(capa_pendientes, 'Pendientes');
 
-// Se agrega al control de capas como de tipo "overlay"
-control_capas.addOverlay(capa_RN, 'Construcciones');
+function updateOpacity() {
+	document.getElementById("span-opacity").innerHTML = document.getElementById("sld-opacity").value;
+	capa_pendientes.setOpacity(document.getElementById("sld-opacity").value);
+}
 	    
 
 // Capa de coropletas del valor fiscal por zonas homogeneas
@@ -83,17 +86,14 @@ $.getJSON('https://raw.githubusercontent.com/Andre9424/Tarea-3/main/Zonas%20Homo
   leyenda.addTo(mapa)
 });
 
-// Capa raster
-var capa_pendientes = L.imageOverlay("https://raw.githubusercontent.com/Andre9424/Tarea-3/main/Pendientes/pendirecWGS84.png", 
-	[[9.6223412691860801, -84.3418993877406109], 
-	[9.8616843904909679, -84.1319159426894743]], 
-	
-).addTo(mapa);
-control_capas.addOverlay(capa_pendientes, 'Pendientes');
+// Agregar capa WMS
+var capa_RN = L.tileLayer.wms('https://geos.snitcr.go.cr/be/IGN_25/wms?', {
+  layers: 'ec140101_25k',
+  format: 'image/png',
+  transparent: true
+}).addTo(mapa);
 
-function updateOpacity() {
-	document.getElementById("span-opacity").innerHTML = document.getElementById("sld-opacity").value;
-	capa_pendientes.setOpacity(document.getElementById("sld-opacity").value);
-}
+// Se agrega al control de capas como de tipo "overlay"
+control_capas.addOverlay(capa_RN, 'Construcciones');
 
 
